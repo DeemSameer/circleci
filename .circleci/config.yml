@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:13.14  # Use a CircleCI convenience image
+      - image: docker:latest # Use a CircleCI convenience image
     steps:
       - checkout
       - run:
