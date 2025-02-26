@@ -10,16 +10,16 @@ jobs:
           command: docker --version
       - run:
           name: Docker Build
-          command: docker build -t simple-node .
+          command: sudo docker build -t simple-node .
       - run:
           name: Docker Tag
-          command: docker tag simple-node $DOCKER_HUB_USERNAME/simple-node:latest
+          command: sudo docker tag simple-node $DOCKER_HUB_USERNAME/simple-node:latest
       - run:
           name: Docker Login
           command: echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
       - run:
           name: Docker Push
-          command: docker push $DOCKER_HUB_USERNAME/simple-node:latest
+          command: sudo docker push $DOCKER_HUB_USERNAME/simple-node:latest
 workflows:
   build_and_push:
     jobs:
