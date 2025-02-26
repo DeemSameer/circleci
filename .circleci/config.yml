@@ -1,0 +1,26 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/node:13.14  # Use a CircleCI convenience image
+    steps:
+      - checkout
+      - run:
+          name: Docker Version
+          command: docker --version
+      - run:
+          name: Docker Build
+          command: docker build -t simple-node .
+      - run:
+          name: Docker Tag
+          command: docker tag simple-node $DOCKER_HUB_USERNAME/simple-node:latest
+      - run:
+          name: Docker Login
+          command: echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+      - run:
+          name: Docker Push
+          command: docker push $DOCKER_HUB_USERNAME/simple-node:latest
+workflows:
+  build_and_push:
+    jobs:
+      - build
